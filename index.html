@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bin Zhang · Engineer at Alibaba Group</title>
+    <meta name="description" content="Personal homepage of Bin Zhang, Engineer at Alibaba Group">
+    <link rel="icon" href="avatar.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #070b14;
+            --card-bg: rgba(15, 23, 42, 0.55);
+            --card-border: rgba(148, 163, 184, 0.16);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent-1: #60a5fa;
+            --accent-2: #a78bfa;
+            --accent-3: #34d399;
+            --glow: rgba(96, 165, 250, 0.35);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body { height: 100%; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.25rem;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ---------- Aurora background ---------- */
+        .aurora {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.5;
+            animation: drift 18s ease-in-out infinite alternate;
+        }
+        .blob-1 { width: 46vw; height: 46vw; background: #1d4ed8; top: -12vw; left: -10vw; }
+        .blob-2 { width: 38vw; height: 38vw; background: #7c3aed; bottom: -10vw; right: -8vw; animation-delay: -6s; }
+        .blob-3 { width: 26vw; height: 26vw; background: #0d9488; top: 40%; left: 62%; animation-delay: -12s; opacity: 0.35; }
+
+        @keyframes drift {
+            0%   { transform: translate(0, 0) scale(1); }
+            50%  { transform: translate(6vw, 4vh) scale(1.12); }
+            100% { transform: translate(-4vw, -3vh) scale(0.95); }
+        }
+
+        /* subtle grid overlay */
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(148,163,184,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(148,163,184,0.05) 1px, transparent 1px);
+            background-size: 56px 56px;
+            mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 30%, transparent 75%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 45%, black 30%, transparent 75%);
+        }
+
+        /* floating particles */
+        .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+        .star {
+            position: absolute;
+            width: 3px; height: 3px;
+            background: rgba(226, 232, 240, 0.7);
+            border-radius: 50%;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.1; transform: translateY(0); }
+            50% { opacity: 0.8; transform: translateY(-8px); }
+        }
+
+        /* ---------- Card ---------- */
+        .card {
+            position: relative;
+            z-index: 1;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 3rem 2.75rem 2.5rem;
+            max-width: 460px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.06);
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out;
+            animation: cardIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(28px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* top accent line */
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 15%; right: 15%;
+            height: 2px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-1), var(--accent-2), transparent);
+        }
+
+        /* ---------- Avatar ---------- */
+        .avatar-wrap {
+            position: relative;
+            width: 132px; height: 132px;
+            margin: 0 auto 1.6rem;
+            animation: cardIn 0.9s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .avatar-ring {
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--accent-1), var(--accent-2), var(--accent-3), var(--accent-1));
+            animation: spin 6s linear infinite;
+            filter: blur(1px);
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .avatar-ring::after {
+            content: "";
+            position: absolute;
+            inset: 4px;
+            border-radius: 50%;
+            background: var(--bg);
+        }
+        .avatar {
+            position: relative;
+            z-index: 1;
+            width: 132px; height: 132px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+        }
+        .status {
+            position: absolute;
+            z-index: 2;
+            right: 4px; bottom: 6px;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            background: var(--accent-3);
+            border: 3px solid var(--bg);
+            animation: pulse 2.4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); }
+            50% { box-shadow: 0 0 0 7px rgba(52, 211, 153, 0); }
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: 2.1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(120deg, #f8fafc 20%, var(--accent-1) 60%, var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: cardIn 0.9s 0.18s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .role {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin: 0.7rem 0 1.4rem;
+            padding: 0.35rem 1.05rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-1);
+            background: rgba(96, 165, 250, 0.12);
+            border: 1px solid rgba(96, 165, 250, 0.25);
+            animation: cardIn 0.9s 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .bio {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin-bottom: 1.5rem;
+            animation: cardIn 0.9s 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .tags {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            animation: cardIn 0.9s 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .tag {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 8px;
+            background: rgba(148, 163, 184, 0.08);
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            transition: all 0.2s ease;
+        }
+        .tag:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-1);
+            transform: translateY(-2px);
+        }
+
+        .links {
+            display: flex;
+            gap: 0.9rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: cardIn 0.9s 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.8rem 1.6rem;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.25s ease;
+        }
+        .btn-primary {
+            color: #fff;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            box-shadow: 0 8px 24px rgba(96, 165, 250, 0.35);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(96, 165, 250, 0.5); }
+        .btn-outline {
+            color: var(--text-primary);
+            border: 1px solid var(--card-border);
+            background: rgba(148, 163, 184, 0.06);
+        }
+        .btn-outline:hover { transform: translateY(-3px); background: rgba(148, 163, 184, 0.14); border-color: rgba(148,163,184,0.35); }
+
+        footer {
+            margin-top: 2.2rem;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
+            animation: cardIn 0.9s 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .toast {
+            position: fixed;
+            z-index: 10;
+            left: 50%;
+            bottom: 2rem;
+            transform: translate(-50%, 20px);
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(52, 211, 153, 0.4);
+            color: var(--accent-3);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.6rem 1.2rem;
+            border-radius: 999px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+        .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+        @media (max-width: 480px) {
+            .card { padding: 2.5rem 1.5rem 2rem; }
+            h1 { font-size: 1.7rem; }
+            .links { flex-direction: column; }
+            .btn { justify-content: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="aurora">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    <div class="grid-overlay"></div>
+    <div class="stars" id="stars"></div>
+
+    <div class="card" id="card">
+        <div class="avatar-wrap">
+            <div class="avatar-ring"></div>
+            <img src="avatar.png" alt="Bin Zhang" class="avatar">
+            <span class="status" title="Open to collaborate"></span>
+        </div>
+
+        <h1>Bin Zhang</h1>
+        <span class="role"><i class="fas fa-microchip"></i> Engineer at Alibaba Group</span>
+
+        <p class="bio">
+            Passionate about building scalable systems and open-source technologies.
+            Currently crafting cloud infrastructure at Alibaba.
+        </p>
+
+        <div class="tags">
+            <span class="tag">Cloud Infrastructure</span>
+            <span class="tag">Distributed Systems</span>
+            <span class="tag">Open Source</span>
+        </div>
+
+        <div class="links">
+            <a href="mailto:allen.zb@alibaba-inc.com" class="btn btn-primary">
+                <i class="fas fa-envelope"></i> Email Me
+            </a>
+            <a href="https://github.com/nandehutu0123" class="btn btn-outline" target="_blank" rel="noopener">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+        </div>
+
+        <footer>&copy; 2026 Bin Zhang · Built with ❤️ on GitHub Pages</footer>
+    </div>
+
+    <div class="toast" id="toast">邮箱已复制：allen.zb@alibaba-inc.com</div>
+
+    <script>
+        // Email 按钮兜底：mailto 无默认邮件客户端时，复制邮箱并提示
+        (function () {
+            var btn = document.querySelector('a[href^="mailto:"]');
+            var toast = document.getElementById('toast');
+            var timer = null;
+            function showToast() {
+                toast.classList.add('show');
+                clearTimeout(timer);
+                timer = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+            }
+            function fallbackCopy(text) {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); } catch (e) {}
+                document.body.removeChild(ta);
+                showToast();
+            }
+            btn.addEventListener('click', function () {
+                var email = 'allen.zb@alibaba-inc.com';
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(email).then(showToast, function () { fallbackCopy(email); });
+                } else {
+                    fallbackCopy(email);
+                }
+            });
+        })();
+        // floating stars
+        (function () {
+            var wrap = document.getElementById('stars');
+            for (var i = 0; i < 36; i++) {
+                var s = document.createElement('span');
+                s.className = 'star';
+                s.style.left = Math.random() * 100 + '%';
+                s.style.top = Math.random() * 100 + '%';
+                s.style.animationDelay = (Math.random() * 4).toFixed(2) + 's';
+                s.style.animationDuration = (3 + Math.random() * 4).toFixed(2) + 's';
+                var scale = 0.5 + Math.random();
+                s.style.transform = 'scale(' + scale.toFixed(2) + ')';
+                wrap.appendChild(s);
+            }
+        })();
+
+        // gentle 3D tilt following the cursor
+        (function () {
+            var card = document.getElementById('card');
+            var max = 6; // degrees
+            document.addEventListener('mousemove', function (e) {
+                var r = card.getBoundingClientRect();
+                var cx = r.left + r.width / 2;
+                var cy = r.top + r.height / 2;
+                var dx = (e.clientX - cx) / (window.innerWidth / 2);
+                var dy = (e.clientY - cy) / (window.innerHeight / 2);
+                card.style.transform = 'perspective(900px) rotateY(' + (dx * max).toFixed(2) + 'deg) rotateX(' + (-dy * max).toFixed(2) + 'deg)';
+            });
+            document.addEventListener('mouseleave', function () {
+                card.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg)';
+            });
+        })();
+    </script>
+</body>
+</html>
